@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "10017445110",
+    "project_id": "gorental-812e4",
+    "storage_bucket": "gorental-812e4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:10017445110:android:e2963d2a954350990c08d7",
+        "android_client_info": {
+          "package_name": "com.company.gorental"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeeLCpnXu-PE0EEr72wLyeNO0YKbTRHfI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
