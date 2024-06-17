@@ -4,18 +4,24 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.company.gorental.databinding.ActivityUserSignupBinding
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.firestore
 
 
 class UserSignupActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityUserSignupBinding
     lateinit var mActivity: Activity
+    //Initializing Firebase Firestore
+    private var db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,16 +42,16 @@ class UserSignupActivity : AppCompatActivity() {
         binding.btSignup.setOnClickListener{
 
 
-            val Username = binding.tieSignupUsername.text.toString()
-            val email = binding.tieSignupEmail.text.toString()
+            val Name = binding.tieSignupName.text.toString()
+            val Email = binding.tieSignupEmail.text.toString()
             val contact = binding.tieSignupContact.text.toString()
             val pass = binding.tieSignupPass.text.toString()
             val Cpass = binding.tieSignupCPass.text.toString()
-            if (TextUtils.isEmpty(Username)){
-                binding.tieSignupUsername.error = "Enter Username"
-                binding.tieSignupUsername.requestFocus()
+            if (TextUtils.isEmpty(Name)){
+                binding.tieSignupName.error = "Enter Username"
+                binding.tieSignupName.requestFocus()
             }
-            else if (TextUtils.isEmpty(email)){
+            else if (TextUtils.isEmpty(Email)){
                 binding.tieSignupEmail.error = "Enter Email"
                 binding.tieSignupEmail.requestFocus()
             }
@@ -64,14 +70,29 @@ class UserSignupActivity : AppCompatActivity() {
             else if(!TextUtils.equals(pass,Cpass)) {
                 binding.tieSignupCPass.error = "Both Password Should be same"
                 binding.tieSignupCPass.requestFocus()
-            }else{
+            }
+            else{
 
                 val intent = Intent(this,LoginActivity::class.java)
                 startActivity(intent)
             }
+            //Firebase
+            val user = hashMapOf(
+                "Name" to Name,
+                "Email" to Email,
+                "Contact Details" to contact,
+                "Password" to Cpass,
+            )
+            val userId = FirebaseAuth.getInstance().currentUser!!.uid
+
+            db.collection("users").document().set(user)
+                .addOnSuccessListener {
+                    Toast.makeText(this,"Successfully Added!", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener{
+                    Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
+                }
         }
-
-
     }
 
     

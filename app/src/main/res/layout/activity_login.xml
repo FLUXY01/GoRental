@@ -33,7 +33,7 @@
         android:layout_marginStart="130dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilUsername"
+        android:id="@+id/tilLoginEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/TextInputLayoutStyle"
@@ -42,7 +42,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="5dp">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tieUsername"
+            android:id="@+id/tieLoginEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"

@@ -74,24 +74,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tiluName"
-            style="@style/TextInputLayoutStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/round_button"
-            android:textColorHint="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/tilName">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tieuName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Username"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilDob"
             style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
@@ -99,7 +81,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/round_button"
             android:textColorHint="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/tiluName">
+            app:layout_constraintTop_toBottomOf="@id/tilName">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tieDob"

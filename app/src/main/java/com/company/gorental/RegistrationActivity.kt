@@ -6,10 +6,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.company.gorental.databinding.ActivityRegistrationBinding
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.firestore
 
 
 class RegistrationActivity : AppCompatActivity() {
@@ -18,6 +22,7 @@ class RegistrationActivity : AppCompatActivity() {
 
     lateinit var mActivity: Activity
 
+    private var db = Firebase.firestore
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,34 +52,31 @@ class RegistrationActivity : AppCompatActivity() {
 
         binding.btSubmit.setOnClickListener {
             val name = binding.tieName.text.toString()
-            val uName = binding.tieuName.text.toString()
             val insurance = if (binding.rgInsurance.checkedRadioButtonId == R.id.rgYes) "Yes" else "No"
             val dob = binding.tieDob.text.toString()
             val contactDetails = binding.tieContactDetails.text.toString()
-            val Email = binding.tieEmail.text.toString()
+            val email = binding.tieEmail.text.toString()
             val adhaarNo = binding.tieAdhaarNo.text.toString()
             val address = binding.tieAddress.text.toString()
             val ePass = binding.tiepass.text.toString()
             val cPass = binding.tieConfpass.text.toString()
+            val ownerName = binding.tieOwnerName.text.toString()
             val modelName = binding.tieModelName.text.toString()
             val colour = binding.tieColor.text.toString()
             val registrationNo = binding.tieRegistrationNo.text.toString()
-            val ownerName = binding.tieOwnerName.text.toString()
+            val price = binding.tiePrice.text.toString()
+            val cam = binding.ivCam.toString()
             if(TextUtils.isEmpty(name)){
                 binding.tieName.error = "Enter Name"
                 binding.tieName.requestFocus()
             }
-            else if(TextUtils.isEmpty(uName)){
-                binding.tieDob.error = "Enter Username"
-                binding.tieDob.requestFocus()
-            }
-            else if(TextUtils.isEmpty(Email)) {
+            else if(TextUtils.isEmpty(email)) {
                 binding.tieDob.error = "Enter Email"
                 binding.tieDob.requestFocus()
             }
             else if(TextUtils.isEmpty(dob)){
                 binding.tieDob.error = "Enter DOB"
-                binding.tieDob.requestFocus()
+                binding.tieDob.requestFocus()     
             }
             else if(contactDetails.length != 10){
                 binding.tieContactDetails.error = "Enter Valid Number"
@@ -116,10 +118,43 @@ class RegistrationActivity : AppCompatActivity() {
                 binding.tieOwnerName.error = "Enter Owner's Name"
                 binding.tieOwnerName.requestFocus()
             }
+            else if(TextUtils.isEmpty(price)){
+                binding.tiePrice.error = "Enter Price"
+                binding.tiePrice.requestFocus()
+            }
+            else if(TextUtils.isEmpty(cam)) {
+                binding.tiePrice.error = "Please Upload Vehicle Photo"
+                binding.tiePrice.requestFocus()
+            }
             else{
                 showPopUp(mActivity)
             }
+            //Firebase
+            val renter = hashMapOf(
+                "Name" to name,
+                "Date Of Birth" to dob,
+                "Contact Details" to contactDetails,
+                "Email" to email,
+                "Adhaar No" to adhaarNo,
+                "Address" to address,
+                "Password" to cPass,
+                "Owner Name" to ownerName,
+                "Model Name" to modelName,
+                "Colour" to colour,
+                "Registration No" to registrationNo,
+                "Price" to price,
+            )
+            val renterId = FirebaseAuth.getInstance().currentUser!!.uid
+
+            db.collection("renters").document().set(renter)
+                .addOnSuccessListener {
+                    Toast.makeText(this,"Successfully Added!",Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener{
+                    Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
+                }
         }
+
     }
 
     private fun showPopUp(context: Context){

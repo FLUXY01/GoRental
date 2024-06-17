@@ -35,7 +35,7 @@
         android:textSize="30dp"
         android:textStyle="bold"/>
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilSignupUsername"
+        android:id="@+id/tilSignupName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tvSignUpHeading"
@@ -46,17 +46,17 @@
         android:textColorHint="@color/black"
         >
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tieSignupUsername"
+            android:id="@+id/tieSignupName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username"
+            android:hint="Name"
             android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tilSignupUsername"
+        app:layout_constraintTop_toBottomOf="@id/tilSignupName"
         style="@style/TextInputLayoutStyle"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
